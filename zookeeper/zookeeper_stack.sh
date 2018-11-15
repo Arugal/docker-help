@@ -27,31 +27,31 @@ usage(){
 generate_config(){
     ZOOKEEPER_IMAGE="zookeeper/zookeeper:latest"
 
-    while [ -n "$1" ]
+    while [ -n "$2" ]
     do 
-    case $1 in 
+    case $2 in 
         --p)
-            ZK_FIRST_PORT=$2
+            ZK_FIRST_PORT=$3
             shift
             ;;
         --h)
-            ZK_HOSTNAME=$2
+            ZK_HOSTNAME=$3
             shift
             ;;
         --i)
-            ZOOKEEPER_IMAGE=$2
+            ZOOKEEPER_IMAGE=$3
             shift
             ;;
         --node)
-            ZK_NODE=$2
+            ZK_NODE=$3
             shift
             ;;
         --r)
-            RESTART_MODE=$2
+            RESTART_MODE=$3
             shift
             ;;
         --n)
-            NETWORK=$2
+            NETWORK=$3
             shift
             ;;
     esac
@@ -105,4 +105,7 @@ fi
 if [ "$1" = '-create' ]; then
     generate_config $*
     echo "docker stack deploy -c $ZK_YML zookeeper"
+else
+    usage
+    exit 0
 fi
