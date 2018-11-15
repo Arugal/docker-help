@@ -104,7 +104,7 @@ fi
 
 if [ "$1" = '-create' ]; then
     generate_config $*
-    echo "docker stack deploy -c $ZK_YML zookeeper"
+    docker stack deploy -c $ZK_YML zookeeper
 else
     usage
     exit 0
