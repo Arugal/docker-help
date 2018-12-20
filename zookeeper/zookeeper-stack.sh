@@ -3,10 +3,10 @@
 # 配置文件地址
 ZK_YML="./zookeeper.yml"
 
-# zk集群端口(宿主机端口),根据节点号递增
+# zk 集群端口(宿主机端口),根据节点号递增
 ZK_FIRST_PORT=2181
 
-# zk 集群主机名, 根据节点号递增
+# zk 主机名, 根据节点号递增
 ZK_HOSTNAME="zookeeper"
 
 # zk 集群节点数
@@ -23,7 +23,7 @@ usage(){
     echo "-create --p {port} --h {hostname} --i {image name} --node {node num} --r {restart mode} --n {network} or -help {display help message}"
 }
 
-# 生成文件
+# 生成 yml 文件
 generate_config(){
     ZOOKEEPER_IMAGE="zookeeper/zookeeper:latest"
 
@@ -88,6 +88,7 @@ generate_config(){
         echo "      ZOO_SERVERS: "$ZOO_SERVERS >> $ZK_YML
     done
 
+    # 指定网络
     echo "networks:" >> $ZK_YML
     echo "  default:" >> $ZK_YML
     echo "    external:" >> $ZK_YML

@@ -1,0 +1,20 @@
+version: '3.4'
+
+x-image:
+ &default-image
+ 10.61.200.36:5000/kafka
+x-netmode:
+ &default-netmode
+ host
+
+services:
+  kafka1:
+    image: *default-image
+    network_mode: *default-netmode
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: 10.61.200.35:2182,10.61.200.36:2183,10.61.200.37:2184
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+    volumes:
+      - /HD/software/axe/container/kafka:/kafka
+    

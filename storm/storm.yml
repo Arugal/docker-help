@@ -1,0 +1,153 @@
+version: '3.4'
+
+x-image:
+ &default-image
+ 10.61.200.36:5000/storm:1.1.0.b
+x-restart:
+ &default-restart
+ always
+
+services:
+  nimbus:
+    image: *default-image
+    container_name: nimbus
+    command: storm nimbus
+    hostname: nimbus
+    restart: *default-restart
+    ports:
+      - 6627:6627
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes:
+      - /HD/software/axe/container/storm/topojar:/topojar
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+  ui:
+    image: *default-image
+    container_name: ui
+    command: storm ui
+    hostname: ui
+    depends_on:
+      - nimbus
+    ports:
+      - 9001:8080
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      UI_PORT: 8080
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+  supervisor1:
+    image: *default-image
+    container_name: supervisor1
+    hostname: supervisor1
+    command: storm supervisor
+    depends_on:
+      - nimbus
+    restart: *default-restart
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes: 
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+  supervisor2:
+    image: *default-image
+    container_name: supervisor2
+    hostname: supervisor2
+    command: storm supervisor
+    depends_on:
+      - nimbus
+    restart: *default-restart
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes: 
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+  supervisor3:
+    image: *default-image
+    container_name: supervisor3
+    hostname: supervisor3
+    command: storm supervisor
+    depends_on:
+      - nimbus
+    restart: *default-restart
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes: 
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+  supervisor4:
+    image: *default-image
+    container_name: supervisor4
+    hostname: supervisor4
+    command: storm supervisor
+    depends_on:
+      - nimbus
+    restart: *default-restart
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes: 
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+  supervisor5:
+    image: *default-image
+    container_name: supervisor5
+    hostname: supervisor5
+    command: storm supervisor
+    depends_on:
+      - nimbus
+    restart: *default-restart
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes: 
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+  supervisor6:
+    image: *default-image
+    container_name: supervisor6
+    hostname: supervisor6
+    command: storm supervisor
+    depends_on:
+      - nimbus
+    restart: *default-restart
+    environment: 
+      ZK_HOSTNAME: zookeeper
+      ZK_NODE: 3
+      ZK_PORT: 2181
+      NIMBUS: nimbus
+      ADD_HOSTS: 10.61.200.35:xa-app1,10.61.200.36:xian-app2,10.61.200.37:xa-app3
+    volumes: 
+      - /HD/software/axe/container/storm/extlib:/apache-storm-1.1.0/extlib
+      - /etc/localtime:/etc/localtime:ro
+networks:
+  default:
+    external:
+      name: base_network

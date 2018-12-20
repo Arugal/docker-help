@@ -1,0 +1,32 @@
+version: '3.4'
+
+x-image:
+ &default-image
+ 10.61.200.36:5000/redis:latest
+
+x-restart:
+ &default-restart
+ always
+
+x-netmode:
+ &default-netmode
+ host
+
+services:
+ redis1:
+  image: *default-image
+  network_mode: *default-netmode
+  restart: *default-restart
+  ports:
+      - 7001:7001
+  environment:
+  - REDIS_PORT=7001
+
+ redis2:
+  image: *default-image
+  network_mode: *default-netmode
+  restart: *default-restart
+  ports:
+      - 7002:7002
+  environment:
+  - REDIS_PORT=7002
