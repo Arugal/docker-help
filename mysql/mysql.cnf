@@ -1,0 +1,20 @@
+[client]
+# 编码
+default-character-set=utf8
+
+[mysql]
+
+[mysqld]
+default-time-zone='+8:00'
+user=mysql
+# 编码
+character-set-server=utf8
+collation-server=utf8_general_ci
+# 忽略大小写
+lower_case_table_names=1
+# 慢查询
+slow_query_log=NO
+slow_query_log_file="slow_querys.log"
+long_query_time=2
+log-queries-not-using-indexes
+log-slow-admin-statements
