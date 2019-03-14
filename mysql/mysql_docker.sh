@@ -5,7 +5,7 @@ container(){
    echo "container_name:$1"
    echo "mysql_passwd:$2"
    echo "mysql_tag:$3"
-   docker run --name $1 -e MYSQL_ROOT_PASSWORD=$2 -d mysql:$3
+   docker run --name $1 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=$2 -d mysql:$3
 }
 
 # 替换 mysql 容器中的配置文件
