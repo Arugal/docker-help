@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9092:9092'
+    container_name: kafka
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_BROKER_ID=1
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      # 是指向Kafka代理的可用地址列表。 Kafka将在初次连接时将它们发送给客户。格式为 PLAINTEXT://host:port
+      # 此处已将容器9092端口映射到宿主机9092端口，且宿主机IP为192.168.2.124，所以host指定为192.168.2.124，便可通过宿主机IP连接kafka
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.2.124:9092
+    depends_on:
+      - zookeeper
